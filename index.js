@@ -1,10 +1,21 @@
 const express = require('express');
 const multer = require('multer');
 const cors = require("cors");
+const connection = require ('./database/config-db')
 
 const app = express();
 app.use(cors({origin: "*"}));
 const port = 3000; // Change this to your desired port number
+
+/*======================================================= */
+const countries = require('./routes/countries')
+
+app.use('/',countries)
+/*======================================================= */
+
+
+
+
 
 // Set up Multer for file uploads
 const storage = multer.diskStorage({
@@ -34,6 +45,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
   res.status(200).json({ filename, size });
 });
 
+/*======================================================= */
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
